@@ -1,3 +1,9 @@
+section	.data
+msg db 'O fatorial do numero inserido :',0xa	
+len equ $ - msg			
+
+section .bss
+fatorial resb 1
 section	.text
    global _start        
 	
@@ -14,7 +20,7 @@ _start:
     mov	  eax, 4          
     int	  0x80           
 
-    mov    edx, 1            ;imprime num
+    mov   edx, 1            ;imprime num
     mov	  ecx, fatorial      
     mov	  ebx, 1          
     mov	  eax, 4          
@@ -31,6 +37,11 @@ _recursao_fatorial:
     ret
 
 _calculo_fat:
+    dec   bl
+    call  _recursao_fatorial
+    inc   bl
+    mul   bl        ;ax = al * bl
+    ret
 
 
          
